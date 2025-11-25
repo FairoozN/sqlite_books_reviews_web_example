@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Shelf</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+
+</head>
+<body>
+    
+    
+    <header class="navbar">
+        <h1>Book Shelf</h1>
+
+        <div id="searchSection">
+        <input type="text" id="searchQuery" placeholder="Search by Title or Author" aria-label="Search Books">
+        <button onclick="searchBooks()">Search</button>
+        </div>
+
+    </header>
+
+    <main class="container">
+        
+        <section id="addBook">
+            <h2>Add a Book</h2>
+            <input type="text" id="bookTitle" placeholder="Book Title">
+            <input type="text" id="bookAuthor" placeholder="Author Name"> 
+            <input type="text" id="publicationYear" placeholder="Publication Year">
+            <input type="text" id="bookImage" placeholder="Image URL">
+            <button onclick="addBook()">Add Book</button>
+        </section>
+        
+        <section id="bookList"></section>
+
+        <section id="controls">
+            <button id="showBooksButton" onclick="showAllBooks()">Show All Books</button>
+        </section>
+
+        <section id="bookShelf" class="grid"></section>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

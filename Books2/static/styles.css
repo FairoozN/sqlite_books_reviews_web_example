@@ -1,0 +1,124 @@
+
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    color: #333;
+    position: relative;
+    min-height: 100vh;
+    background: url("https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1950&q=80") 
+                no-repeat center center fixed;
+    background-size: cover;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(5px);
+    z-index: -1;
+}
+
+.navbar {
+    background-color: rgba(45, 52, 54, 0.85);
+    color: white;
+    padding: 15px 25px;
+    font-size: 1.8em;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+#addBook {
+    background: rgba(255, 255, 255, 0.85);
+    padding: 25px;
+    margin: 30px auto;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    max-width: 600px;
+    text-align: center;
+}
+
+#addBook input {
+    margin: 8px;
+    padding: 10px;
+    width: 80%;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background-color: #0984e3;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background-color: #74b9ff;
+}
+
+#allbooks, #bookShelf {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 25px;
+    margin: 30px auto;
+    max-width: 1200px;
+    padding: 20px;
+}
+
+.book-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.book-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+
+.book-card img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.book-card h3 {
+    margin: 10px 0 5px;
+    color: #2d3436;
+}
+
+.book-card p {
+    margin: 5px 0;
+    color: #636e72;
+    font-size: 0.9em;
+}
+
+#showBooksButton {
+    margin: 20px auto;
+    display: block;
+    background-color: #00cec9;
+}
+
+#showBooksButton:hover {
+    background-color: #81ecec;
+}
