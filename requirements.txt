@@ -1,5 +1,4 @@
 
-dnspython==2.8.0
 iniconfig==2.1.0
 MarkupSafe==3.0.3
 mysql-connector-python==9.5.0
@@ -8,9 +7,11 @@ pluggy==1.6.0
 Pygments==2.19.2
 pymongo==4.15.3
 pytest==8.4.2
-flask
+Flask==2.3.3
 blinker==1.8.2
-click==8.1.8
-itsdangerous
-jinja2
-Werkzeug
+click==8.1.7
+dnspython==2.6.1
+itsdangerous==2.1.2
+Jinja2==3.1.4
+Werkzeug==2.3.7
+gunicorn==21.2.0
