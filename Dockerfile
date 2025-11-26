@@ -1,5 +1,6 @@
-# Use an official Python runtime as a parent image
-FROM python:3.8
+# Use Python 3.10 (compatible with modern packages)
+FROM python:3.10-slim
+
 
 # Set the working directory in the container
 WORKDIR /app
@@ -18,3 +19,4 @@ ENV FLASK_ENV=production
 
 # Command to run your application
 CMD ["python", "app.py"]
+
