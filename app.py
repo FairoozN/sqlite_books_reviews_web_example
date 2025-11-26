@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request, redirect, url_for
 import sqlite3
 import pymongo
 import mysql.connector
@@ -9,21 +9,19 @@ app = Flask(__name__)
 DATABASE = 'db/books.db'
 app.config['DATABASE'] = DATABASE
 
-
 client = pymongo.MongoClient("mongodb://localhost:27017/")
 mongo_db = client['book_database']
 reviews_collection = mongo_db['reviews']
 
-# MySQL connection
 def get_mysql_connection():
     return mysql.connector.connect(
         host="localhost",
         user="root",
-        password="NewPassword123!",  
+        password="NewPassword123!",
         database="books"
     )
 
-# Function to log events into MySQL logs table
+
 def log_to_mysql(function_name, status, execution_time=None, error_message=None):
     try:
         conn = get_mysql_connection()
@@ -107,7 +105,7 @@ def get_all_reviews():
 
 
 @app.route('/api/add_review', methods=['POST'])
-def add_review():
+def add_review_api():
     start = time.time()
     try:
         data = request.get_json()
@@ -205,6 +203,42 @@ def search_books():
     except Exception as e:
         log_to_mysql('search_books', 'error', None, str(e))
         return jsonify({'error': str(e)})
+
+
+
+@app.route('/book/<int:book_id>')
+def book_details(book_id):
+    """Show book info + reviews"""
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT book_id, title, publication_year, image_url
+        FROM Books WHERE book_id = ?
+    """, (book_id,))
+    book = cursor.fetchone()
+    conn.close()
+
+    reviews = list(reviews_collection.find({"book_id": book_id}))
+
+    return render_template("book_details.html", book=book, reviews=reviews)
+
+
+@app.route('/add_review/<int:book_id>', methods=['POST'])
+def add_review_form(book_id):
+    """Add review submitted through HTML form."""
+    user = request.form["user"]
+    rating = int(request.form["rating"])
+    comment = request.form["comment"]
+
+    reviews_collection.insert_one({
+        "book_id": book_id,
+        "user": user,
+        "rating": rating,
+        "comment": comment
+    })
+
+    return redirect(url_for("book_details", book_id=book_id))
 
 
 @app.route('/')

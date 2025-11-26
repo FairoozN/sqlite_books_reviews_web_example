@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ book[1] }} - Book Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<h1>{{ book[1] }}</h1>
+
+<p><strong>Publication Year:</strong> {{ book[2] }}</p>
+
+{% if book[3] %}
+    <img src="{{ book[3] }}" alt="Book Image" style="max-width:200px;">
+{% endif %}
+
+<hr>
+
+<h2>Reviews</h2>
+
+{% if reviews %}
+    <ul>
+        {% for r in reviews %}
+            <li style="margin-bottom: 10px;">
+                <strong>{{ r.user }}</strong> — ⭐ {{ r.rating }} <br>
+                {{ r.comment }}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No reviews yet.</p>
+{% endif %}
+
+<hr>
+
+<h2>Add a Review</h2>
+
+<form action="{{ url_for('add_review_form', book_id=book[0]) }}" method="POST" style="max-width:300px;">
+    <label>Your Name:</label><br>
+    <input type="text" name="user" required><br><br>
+
+    <label>Rating:</label><br>
+    <select name="rating" required>
+        <option value="5">5 - Excellent</option>
+        <option value="4">4 - Good</option>
+        <option value="3">3 - Average</option>
+        <option value="2">2 - Poor</option>
+        <option value="1">1 - Terrible</option>
+    </select>
+    <br><br>
+
+    <label>Comment:</label><br>
+    <textarea name="comment" rows="4" required></textarea>
+    <br><br>
+
+    <button type="submit">Submit Review</button>
+</form>
+
+<br>
+<a href="/">⬅ Back to Home</a>
+
+</body>
+</html>
