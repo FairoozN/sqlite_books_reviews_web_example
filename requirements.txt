@@ -1,3 +1,5 @@
+
+certifi
 iniconfig==2.1.0
 MarkupSafe==2.1.5
 mysql-connector-python==9.5.0
