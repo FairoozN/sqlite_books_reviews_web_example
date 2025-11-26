@@ -10,14 +10,20 @@ app = Flask(__name__)
 DATABASE = 'db/books.db'
 app.config['DATABASE'] = DATABASE
 
-
 import certifi
 
-MONGO_URI = "mongodb+srv://coolismebro_db_user:<ifV2xR3bKu6VkcsH>@cluster0.avxrasj.mongodb.net/?appName=Cluster0"
+MONGO_URI = "mongodb+srv://coolismebro_db_user:ifV2xR3bKu6VkcsH@cluster0.avxrasj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
-client = pymongo.MongoClient(MONGO_URI, tls=True, tlsCAFile=certifi.where())
+client = pymongo.MongoClient(
+    MONGO_URI,
+    tls=True,
+    tlsCAFile=certifi.where()
+)
+
 mongo_db = client["book_database"]
 reviews_collection = mongo_db["reviews"]
+
+
 
 
 
@@ -207,4 +213,5 @@ def index():
 if __name__ == '__main__':
     print("Running on port 5001")
     app.run(debug=True, host="0.0.0.0", port=5001)
+
 
