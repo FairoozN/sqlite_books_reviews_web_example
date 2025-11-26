@@ -10,23 +10,17 @@ app = Flask(__name__)
 DATABASE = 'db/books.db'
 app.config['DATABASE'] = DATABASE
 
-# ---------------------------
-# MONGODB ATLAS CONNECTION
-# ---------------------------
-MONGO_URI = os.getenv("MONGO_URI")  # <-- Render environment variable
 
-if not MONGO_URI:
-    print("⚠ WARNING: MONGO_URI not found. Using localhost for local testing.")
-    MONGO_URI = "mongodb://localhost:27017/"  # fallback for local testing
+import certifi
 
-client = pymongo.MongoClient(MONGO_URI)
-mongo_db = client['book_database']
-reviews_collection = mongo_db['reviews']
+MONGO_URI = "mongodb+srv://coolismebro_db_user:<ifV2xR3bKu6VkcsH>@cluster0.avxrasj.mongodb.net/?appName=Cluster0"
+
+client = pymongo.MongoClient(MONGO_URI, tls=True, tlsCAFile=certifi.where())
+mongo_db = client["book_database"]
+reviews_collection = mongo_db["reviews"]
 
 
-# ---------------------------
-# MYSQL LOGGING (unchanged)
-# ---------------------------
+
 def get_mysql_connection():
     return mysql.connector.connect(
         host="localhost",
@@ -213,3 +207,4 @@ def index():
 if __name__ == '__main__':
     print("Running on port 5001")
     app.run(debug=True, host="0.0.0.0", port=5001)
+
